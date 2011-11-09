@@ -26,10 +26,10 @@ class Game
   #--------
   private
 
+  # deal alternately to each hand
   def create_hands(num_players, num_cards)
     hands = (0...num_players).map { Hand.new }
     (0...num_cards).each do
-      # deal alternately to each hand
       hands.each {|h| h << deck.deal_one }
     end
     hands

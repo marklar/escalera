@@ -1,38 +1,24 @@
-#
-# Shuffling:
-#   - 0.0: perfectly random shuffle.
-#   - 1.0: no shuffling (unchanged).
-# As 'goodness' increases, the quality of shuffle decreases.
-#
-# Make up your own shuffle algorithm.  Explain how it works.
-# Imagine what a "real" shuffle (done by a person) might look like
-# and try to capture some of the properties of that shuffle.
-#
-# (What is defined as a "perfect" shuffle above cannot be done by a
-# person in a single shuffle, so you won't be able to exactly
-# model a real shuffle.).
-#
 require 'array_util'
 
 class Array
   R = Random.new
 
-  # Deal elems into a number of piles, in random order each cycle.
-  # (Could also use random_idx(ary), which would mean not using cycles.)
-  # Then stack piles in random order.
   # Does NOT mutate ary.
   def piles_shuffle(goodness=0.0)
-    ary = self.dup
+    # Create empty piles.
     n_piles = num_shuffle_piles(goodness)
     piles = (0...n_piles).map { [] }
+    # Deal elements from ary into piles, in random order each cycle.
+    ary = self.dup
     while (! ary.empty?)
       piles = piles.sort_shuffle
       piles.each do |p|
         p << ary.shift unless ary.empty?
       end
     end
-    # Join piles in random order.
-    piles.sort_shuffle.flatten
+    # Join piles in random order?
+    # piles.sort_shuffle.flatten
+    piles.flatten
   end
 
   # 1..count
@@ -46,7 +32,7 @@ class Array
   def sort_shuffle
     self.
       map {|e| [R.rand(0..BIG_NUM), e] }.  # Assign random num to each.
-      sort.                                # Sort by random num.
+      sort {|a,b| a[0] <=> b[0] }.         # Sort by random num.
       map {|(_,c)| c }
   end
 

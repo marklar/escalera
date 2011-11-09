@@ -60,4 +60,10 @@ class TestArrayShuffle < Test::Unit::TestCase
     # puts "Sort: " + a.inspect
   end
 
+  def test_sorting_with_array_of_arrays
+    a = [ [0,1], [2,3], [4,5], [6,7] ]
+    a = a.sort_shuffle.sort_shuffle.sort_shuffle.sort_shuffle
+    # puts a.inspect
+  end
+
 end
