@@ -12,6 +12,4 @@
 #       Returns true if hand contains a straight of the given length.
 #       If sameSuit is true, counts only flushes (same-suit straights).
 #       If sameSuit is false, count all straights.
-#       See below after "What are the changes of being
-                dealt a 3-card straight" for a definition of
-                "straight")
+#

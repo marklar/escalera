@@ -1,7 +1,7 @@
 #
 # Answer the following questions by simulation (not by calculation).
-# Generate many random deals.
-# Collect statistics from those deals (using the classes defined above).
+#   Generate many random deals.
+#   Collect stats from those deals.
 #
 # Starting point:
 #   - 2 players
@@ -9,15 +9,21 @@
 #   - alternating deal: player1, player2, player1, etc.
 #   - 5 cards each
 #
-# - What are the chances of being dealt a 3-card straight, i.e.  three
-  consecutive cards.  The three cards may be of different suits, and
-  it still counts as a 3-card straight if there are more than three
-  consecutive cards. This hand has a 3-card straight:
-     4 of clubs, 5 of spades, 6 of diamonds 7 of clubs, K of clubs
-  This hand does not:
-     4 of clubs, 5 of clubs,  7 of clubs, 8 of spades, K of clubs
-
-- How do the chances vary with how well the deck is shuffled?
-  (i.e. with the "goodness" parameter in the Deck shuffle method).
-
-- How does this answer change if you vary the number of players?
+# Questions:
+# 
+# 1. What are the chances of being dealt a 3-card straight, i.e. three
+# consecutive cards?
+#
+# The 3 cards may be of different suits, and there may be more
+# than 3 consecutive cards.
+#
+# This hand has a 3-card straight:
+#   - 4 clubs, 5 spades, 6 diamonds, 7 clubs, K clubs
+# This hand does not:
+#   - 4 clubs, 5 clubs, 7 clubs, 8 spades, K clubs
+#
+# 2. How do the chances vary with how well the deck is shuffled,
+# i.e. with the "goodness" parameter in the Deck shuffle method?
+#
+# 3. How does this answer change if you vary the number of players?
+#
