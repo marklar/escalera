@@ -11,6 +11,16 @@ class Card
     (@suit, @rank) = [suit, rank]
   end
 
+  def cmp_suit_then_rank(other)
+    c = cmp_suit(other)
+    c == 0 ? cmp_rank(other) : c
+  end
+
+  def cmp_rank_then_suit(other)
+    c = cmp_rank(other)
+    c == 0 ? cmp_suit(other) : c
+  end
+
   # Value (not obj) identity.
   def ==(other)
     (suit == other.suit) && (rank == other.rank)
@@ -35,6 +45,14 @@ class Card
     unless Ranks.include? rank
       raise ArgumentError.new("Unknown card rank: #{rank}")
     end
+  end
+
+  def cmp_suit(other)
+    Suits.find_index(self.suit) <=> Suits.find_index(other.suit)
+  end
+
+  def cmp_rank(other)
+    Ranks.find_index(self.rank) <=> Ranks.find_index(other.rank)
   end
 
 end
