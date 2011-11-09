@@ -1,6 +1,18 @@
 
 class Array
 
+  def windows(width)
+    a = []
+    each_window(width) {|w| a << w }
+    a
+  end
+
+  def each_window(width)
+    (0 .. (size - width)).each do |i|
+      yield self[i,width]
+    end
+  end
+
   def swap_at_indices(i1, i2)
     e = self[i1]
     self[i1] = self[i2]

@@ -14,7 +14,9 @@ class TestHand < Test::Unit::TestCase
   end
 
   def test_has_straight
-    # @h
+    assert( ! @h.has_straight?(3, true),  "3, true" )
+    assert(   @h.has_straight?(3, false), "3, false" )
+    assert( ! @h.has_straight?(4, false), "4, false" )
   end
 
   def test_to_s

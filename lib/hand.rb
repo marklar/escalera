@@ -19,12 +19,7 @@ class Hand
   end
 
   def has_straight?(len, in_same_suit)
-    if in_same_suit
-      sort_by_suit!
-      # take each window of len cards, see if straight
-    else
-      sort_by_rank!
-    end
+    in_same_suit ? has_flush?(len) : has_simple_straight?(len)
   end
 
   def <<(card)
@@ -45,6 +40,23 @@ class Hand
     
   def to_s
     @cards.inspect
+  end
+
+  #--------
+  private
+
+  def has_simple_straight?(len)
+    sort_by_rank!
+    @cards.windows(len).any? do |cs|
+      cs.windows(2).all? {|(a,b)| a.straight_before?(b) }
+    end
+  end
+
+  def has_flush?(len)
+    sort_by_suit!
+    @cards.windows(len).any? do |cs|
+      cs.windows(2).all? {|(a,b)| a.flush_before?(b) }
+    end
   end
 
 end

@@ -1,8 +1,19 @@
+$LOAD_PATH << './lib'
 require 'array_util'
 require 'test/unit'
 
 class TestUtil < Test::Unit::TestCase
-  
+
+  def test_windows
+    a = [0,1,2,3,4,5,6]
+    b = [ [0,1,2],
+          [1,2,3],
+          [2,3,4],
+          [3,4,5],
+          [4,5,6] ]
+    assert( b.same_elements?( a.windows(3) ) )
+  end
+
   def test_same_elements
     a = [1,2,3]
     b = [1,2,3]
