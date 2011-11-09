@@ -4,16 +4,31 @@ require 'test/unit'
 
 class TestCard < Test::Unit::TestCase
 
-  def test_eq
-    c1 = Card.new(:spades, 3)
-    c2 = Card.new(:spades, 3)
-    assert( c1 == c2 )
-  end
-
   def test_new
     assert_raise(ArgumentError) { Card.new(:hearts, 1) }  # 1
     assert_raise(ArgumentError) { Card.new(:heart,  2) }  # :heart
     assert_nothing_raised(ArgumentError) { Card.new(:hearts, 2) }
+  end
+
+  def test_straight_before
+    c1 = Card.new(:spades, 3)
+    c2 = Card.new(:hearts, 4)
+    assert( c1.straight_before?(c2) )
+    assert( ! c2.straight_before?(c1) )
+  end
+
+  def test_flush_before
+    c1 = Card.new(:spades, 3)
+    c2 = Card.new(:spades, 4)
+    c3 = Card.new(:hearts, 4)
+    assert( c1.flush_before?(c2) )
+    assert( ! c1.flush_before?(c3) )
+  end
+
+  def test_eq
+    c1 = Card.new(:spades, 3)
+    c2 = Card.new(:spades, 3)
+    assert( c1 == c2 )
   end
 
   def test_to_i

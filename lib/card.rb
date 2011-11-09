@@ -11,6 +11,16 @@ class Card
     (@suit, @rank) = [suit, rank]
   end
 
+  # any suit
+  def straight_before?(other)
+    Ranks.find_index(other.rank) == Ranks.find_index(rank).succ
+  end
+
+  # same suit
+  def flush_before?(other)
+    (suit == other.suit) && straight_before?(other)
+  end
+
   def cmp_suit_then_rank(other)
     c = cmp_suit(other)
     c == 0 ? cmp_rank(other) : c
