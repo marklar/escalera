@@ -13,3 +13,6 @@
 #       If sameSuit is true, counts only flushes (same-suit straights).
 #       If sameSuit is false, count all straights.
 #
+
+class Hand
+end

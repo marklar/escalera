@@ -5,6 +5,7 @@ class TestDeck < Test::Unit::TestCase
 
   def test_new
     d = Deck.new
+    puts d.to_ints_str
     assert_equal(52, d.not_dealt.size)
     assert_equal(0,  d.dealt.size)
   end
