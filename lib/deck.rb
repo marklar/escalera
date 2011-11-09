@@ -9,14 +9,13 @@ class Deck
     @dealt = []
   end
 
-  #----------------------------
-  # quality
+  # 'goodness'
   #   1.0: unchanged.
   #   0.0: perfectly random shuffling.
-  def shuffle(quality)
-    # Shuffle the not_dealt cards.
+  def shuffle!(goodness)
+    @not_dealt = not_dealt.piles_shuffle(goodness)
+    self
   end
-  #----------------------------
 
   # Move top card (TC) from ND onto D.  Return TC.
   def deal_one
@@ -31,8 +30,8 @@ class Deck
   end
 
   def to_ints_str
-    "ND: " + not_dealt.map {|c| c.to_i }.inspect + "\n" +
-      "D: " + dealt.map {|c| c.to_i }.inspect
+    "ND: " + not_dealt.map(&:to_i).inspect + "\n" +
+      "D: " + dealt.map(&:to_i).inspect
   end
 
   #--------

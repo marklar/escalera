@@ -14,9 +14,8 @@
 #
 require 'array_util'
 
-$r = Random.new
-
 class Array
+  R = Random.new
 
   # Deal elems into a number of piles, in random order each cycle.
   # (Could also use random_idx(ary), which would mean not using cycles.)
@@ -25,7 +24,7 @@ class Array
   def piles_shuffle(goodness=0.0)
     ary = self.dup
     n_piles = num_shuffle_piles(goodness)
-    piles = (0...n_piles).map {|_| [] }
+    piles = (0...n_piles).map { [] }
     while (! ary.empty?)
       piles = piles.sort_shuffle
       piles.each do |p|
@@ -46,8 +45,8 @@ class Array
   BIG_NUM = 100_000
   def sort_shuffle
     self.
-      map {|e| [$r.rand(0..BIG_NUM), e] }.  # Assign random num to each.
-      sort.                                 # Sort by random num.
+      map {|e| [R.rand(0..BIG_NUM), e] }.  # Assign random num to each.
+      sort.                                # Sort by random num.
       map {|(_,c)| c }
   end
 
@@ -76,7 +75,7 @@ class Array
   # MUTATES ary.
   def knuth_shuffle!
     (self.size - 1).downto(1) do |i|
-      j = $r.rand(0..i)
+      j = R.rand(0..i)
       self.swap_at_indices(i, j)
     end
     self

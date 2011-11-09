@@ -19,7 +19,7 @@ class Hand
   end
 
   def has_straight?(len, in_same_suit)
-    in_same_suit ? has_flush?(len) : has_simple_straight?(len)
+    if in_same_suit then has_flush?(len) else has_simple_straight?(len) end
   end
 
   def <<(card)
@@ -40,6 +40,10 @@ class Hand
     
   def to_s
     @cards.inspect
+  end
+
+  def size
+    @cards.size
   end
 
   #--------

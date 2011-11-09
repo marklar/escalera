@@ -37,7 +37,7 @@ class TestArrayShuffle < Test::Unit::TestCase
     # puts "C: #{c.inspect}"
 
     d = @a.piles_shuffle(0.9)
-    puts "D: #{d.inspect}"
+    # puts "D: #{d.inspect}"
   end
 
   def test_mongean

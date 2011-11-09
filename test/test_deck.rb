@@ -1,13 +1,25 @@
 require 'deck'
+require 'array_util'
 require 'test/unit'
 
 class TestDeck < Test::Unit::TestCase
 
   def test_new
     d = Deck.new
-    puts d.to_ints_str
+    # puts d.to_ints_str
     assert_equal(52, d.not_dealt.size)
     assert_equal(0,  d.dealt.size)
+  end
+
+  def test_shuffle
+    d1 = Deck.new
+    d2 = Deck.new
+    d2.shuffle!(1.0)
+    assert( d1.not_dealt.same_elements?(d2.not_dealt) )
+    d2.shuffle!(0.5)
+    assert( ! d1.not_dealt.same_elements?(d2.not_dealt) )
+    # puts d1.to_ints_str
+    # puts d2.to_ints_str
   end
 
   def test_deal_one
