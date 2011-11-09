@@ -12,7 +12,7 @@
 # person in a single shuffle, so you won't be able to exactly
 # model a real shuffle.).
 #
-require './array_util'
+require 'array_util'
 
 $r = Random.new
 

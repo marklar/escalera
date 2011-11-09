@@ -1,5 +1,5 @@
-require './card'
-require './shuffle'
+require 'card'
+require 'array_shuffle'
 
 class Deck
   attr_accessor :not_dealt, :dealt

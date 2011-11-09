@@ -1,4 +1,4 @@
-require './array_util'
+require 'array_util'
 require 'test/unit'
 
 class TestUtil < Test::Unit::TestCase

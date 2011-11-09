@@ -1,4 +1,4 @@
-require './array_shuffle'
+require 'array_shuffle'
 require 'test/unit'
 
 class TestArrayShuffle < Test::Unit::TestCase
