@@ -1,28 +1,46 @@
 require 'array_util'
 
 class Array
-  #
-  # What can be impacted by the goodness score?
-  #   - number of piles
-  #   - number of cards to move at a time
-  #   - 
+  USE_RANDOM_DISTRO = true
+
+  def pile_shuffle(goodness=0.0)
+    if USE_RANDOM_DISTRO
+      random_distro_fixed_stack_shuffle(goodness)
+    else
+      fixed_distro_random_stack_shuffle(goodness)
+    end
+  end
 
   # Does NOT mutate ary.
-  def pile_shuffle(goodness=0.0)
-    # Create empty piles.
-    n_piles = num_piles(goodness)
-    piles = (0...n_piles).map { [] }
-    # Deal elements from ary into piles, in random order each cycle.
+  def random_distro_fixed_stack_shuffle(goodness=0.0)
+    piles = create_empty_piles(goodness)
     ary = self.dup
     while (! ary.empty?)
-      piles = piles.sort_shuffle
+      piles.knuth_shuffle!  # random distro
       piles.each do |p|
         p << ary.shift unless ary.empty?
       end
     end
-    # Join piles in random order?
-    # piles.sort_shuffle.flatten
+    piles.flatten   # fixed stack
+  end
+
+  # Does NOT mutate ary.
+  def fixed_distro_random_stack_shuffle(goodness=0.0)
+    piles = create_empty_piles(goodness)
+    ary = self.dup
+    while (! ary.empty?)
+      # fixed distro
+      piles.each do |p|
+        p << ary.shift unless ary.empty?
+      end
+    end
+    piles.knuth_shuffle!   # random stack
     piles.flatten
+  end
+
+  def create_empty_piles(goodness)
+    n_piles = num_piles(goodness)
+    (0...n_piles).map { [] }
   end
 
   # 1..count

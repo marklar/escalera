@@ -10,17 +10,6 @@ class TestShuffle < Test::Unit::TestCase
 
   def test_num_piles
     nums = (0..51).to_a
-#     assert_equal(52, nums.num_piles(0.0))
-#     assert_equal(47, nums.num_piles(0.1))
-#     assert_equal(42, nums.num_piles(0.2))
-#     assert_equal(37, nums.num_piles(0.3))
-#     assert_equal(32, nums.num_piles(0.4))
-#     assert_equal(27, nums.num_piles(0.5))
-#     assert_equal(22, nums.num_piles(0.6))
-#     assert_equal(17, nums.num_piles(0.7))
-#     assert_equal(12, nums.num_piles(0.8))
-#     assert_equal(7,  nums.num_piles(0.9))
-#     assert_equal(1,  nums.num_piles(1.0))
     assert_equal(52, nums.num_piles(0.0))
     assert_equal(47, nums.num_piles(0.1))
     assert_equal(42, nums.num_piles(0.2))
