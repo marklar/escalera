@@ -1,5 +1,5 @@
 require 'card'
-require 'array_shuffle'
+require 'shuffle'
 
 class Deck
   attr_accessor :not_dealt, :dealt
@@ -13,7 +13,8 @@ class Deck
   #   1.0: unchanged.
   #   0.0: perfectly random shuffling.
   def shuffle!(goodness)
-    @not_dealt = not_dealt.piles_shuffle(goodness)
+    # @not_dealt = not_dealt.pile_shuffle(goodness)
+    @not_dealt = not_dealt.hindu_shuffle(goodness)
     self
   end
 

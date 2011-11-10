@@ -1,9 +1,24 @@
 
 class Array
 
+  def groups_of(n)
+    a = []
+    each_group_of(n) {|elems| a << elems }
+    a
+  end
+
+  def each_group_of(n)
+    i = 0
+    while i < size
+      yield self[i,n]
+      i += n
+    end
+  end
+
+  # overlapping
   def windows(width)
     a = []
-    each_window(width) {|w| a << w }
+    each_window(width) {|win| a << win }
     a
   end
 

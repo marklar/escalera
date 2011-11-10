@@ -4,6 +4,21 @@ require 'test/unit'
 
 class TestUtil < Test::Unit::TestCase
 
+  def test_groups_of
+    a = [0,1,2,3,4,5,6]
+    b = [ [0,1,2],
+          [3,4,5],
+          [6] ]
+    assert( b.same_elements?( a.groups_of(3) ) )
+  end
+
+  def test_each_group_of
+    a = [0,1,2,3,4,5,6]
+    a.each_group_of(2) do |elems|
+      # puts elems.inspect
+    end
+  end
+
   def test_windows
     a = [0,1,2,3,4,5,6]
     b = [ [0,1,2],

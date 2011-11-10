@@ -15,6 +15,7 @@ class TestDeck < Test::Unit::TestCase
     d1 = Deck.new
     d2 = Deck.new
     d2.shuffle!(1.0)
+    puts d2.inspect
     assert( d1.not_dealt.same_elements?(d2.not_dealt) )
     d2.shuffle!(0.5)
     assert( ! d1.not_dealt.same_elements?(d2.not_dealt) )

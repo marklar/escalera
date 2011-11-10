@@ -1,14 +1,3 @@
-
-# Hand:
-# Represents a set of cards, cardinality from 0 to 52 cards.
-# Cards are always in some definite order.
-#
-# Methods:
-#   - hasStraight(len, sameSuit)
-#       Returns true if hand contains a straight of the given length.
-#       If sameSuit is true, counts only flushes (same-suit straights).
-#       If sameSuit is false, count all straights.
-#
 require 'card'
 
 class Hand
