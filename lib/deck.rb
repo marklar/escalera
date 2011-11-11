@@ -9,7 +9,7 @@ class Deck
     @dealt = []
   end
 
-  # 'goodness'
+  # 'goodness':
   #   1.0: unchanged.
   #   0.0: perfectly random shuffling.
   def shuffle!(goodness)

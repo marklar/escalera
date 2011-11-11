@@ -1,5 +1,9 @@
 require 'array_util'
 
+#
+# Monkey-patching class Array
+# to add methods specific to (various levels of) random shuffling.
+#
 class Array
   R = Random.new
 

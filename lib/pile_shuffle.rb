@@ -1,10 +1,17 @@
 require 'array_util'
 
+#
+# Monkey-patching class Array
+# to add methods specific to pile shuffling.
+#
+# Shuffling is a generic operation on Arrays
+# and need know nothing of cards or decks, etc.
+#
 class Array
-  USE_RANDOM_DISTRO = true
+  RAND_THEN_FIXED = true
 
   def pile_shuffle(goodness=0.0)
-    if USE_RANDOM_DISTRO
+    if RAND_THEN_FIXED
       random_distro_fixed_stack_shuffle(goodness)
     else
       fixed_distro_random_stack_shuffle(goodness)
@@ -15,26 +22,29 @@ class Array
   def random_distro_fixed_stack_shuffle(goodness=0.0)
     piles = create_empty_piles(goodness)
     ary = self.dup
+    # random distro
     while (! ary.empty?)
-      piles.knuth_shuffle!  # random distro
       piles.each do |p|
         p << ary.shift unless ary.empty?
       end
+      piles.knuth_shuffle!
     end
-    piles.flatten   # fixed stack
+    # fixed stack
+    piles.flatten
   end
 
   # Does NOT mutate ary.
   def fixed_distro_random_stack_shuffle(goodness=0.0)
     piles = create_empty_piles(goodness)
     ary = self.dup
+    # fixed distro
     while (! ary.empty?)
-      # fixed distro
       piles.each do |p|
         p << ary.shift unless ary.empty?
       end
     end
-    piles.knuth_shuffle!   # random stack
+    # random stack
+    piles.knuth_shuffle!
     piles.flatten
   end
 

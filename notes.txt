@@ -1,20 +1,22 @@
 
-- "Goodness" of Shuffle -
+= Comments on Strategy =
+
+- "Goodness" -
 
 The "goodness" parameter dictates the desired quality of the shuffle.
 (It might better be called "badness", since as its value increases,
-the quality of the shuffle is supposed to decrease.)  In essence, it's
-inversely proportional to entropy.
+the quality of the shuffle is to decrease.)  It's inversely
+proportional to entropy.
 
-Our goal is to make uncertainty decrease monotonically.  But can we
-make it decrease linearly?  And if so, how?
+Our goal is to make uncertainty decrease monotonically.  (But can we
+make it decrease linearly?  And if so, how?)
 
 In order to decrease uncertainty, we can use the "goodness" parameter
 to modify different aspects of our shuffling algorithm.  Let's
 consider one algorithm, and consider how it can be parametrized by
 "goodness".
 
-- Piles -
+- Shuffling with Piles -
 
 One technique we can use for shuffling involves using piles.
   1. Select the NUMBER OF PILES into which to divide the cards.
@@ -23,59 +25,61 @@ One technique we can use for shuffling involves using piles.
 
 Let's discuss these in reverse.
 
-STACKING: Stacking is simple.  There are two ways to do stacking of
-the piles:
-  * fixed order
-  * random order
+- Stacking -
 
-For DISTRIBUTION, we can choose:
-  * NUMBER OF CARDS:
-    - move one card a time, or
-    - multiple
-  * EVENNESS (or not):
-    - uneven: select piles at random, without regard for evenness
-    - even: in rounds, where each pile gets one turn
-      ORDER within rounds:
-      + fixed order
-      + random order
+Stacking is simple.  Choose a means of ordering the piles: fixed
+order, or random order.
 
-But let's narrow this down.  Let's move just one card at a time.
-Let's also use _even_ distribution.  This way, it's easier to reason
-about where cards will end up (and to control our uncertainty).  So
-for distribution (as well as stacking), that leaves us with choosing
-fixed vs. random order.
+- Distribution -
+
+Number of cards.  One could move more than one card at a time, but I
+chose to stick with just one.  The benefit of moving multiple cards at
+a time was unclear, and it complicates achieving a "perfect" shuffle.
+
+Evenness.  One could choose to distribute the cards evenly, by giving
+out cards in rounds, where each pile gets a card.  Or one could do it
+unevenly, without rounds.  I chose to use rounds, which makes it
+easier to control the quality of the shuffle.
+
+Order.  Assuming we use rounds for evenness of distribution, we must
+still decide in which order to feed the piles.  One can use a fixed
+order, or random ordering.  We'll explore those options in a bit.
+
+So, let's summarize.  We'll distribute evenly across the piles using
+either fixed or random order.  Then we'll stack the piles, again in
+either fixed or random order.
+
+- Selecting the Number of Piles -
 
 Then, to control the degree of randomness in the shuffle, we can
-MODULATE THE NUMBER OF PILES.
+modulate the number of piles.
 
-Now, assuming we're distributing cards evenly one at a time, for
-MAXIMAL uncertainty, we want 52 separate piles (or more, with some
-empty!).  We must use randomness either in distributing or in stacking
-(or both!), or else we'll have no uncertainty.  We'll discuss how to
-perform that random ordering later.
+For MINIMAL uncertainty, we want just 1 pile.  Essentially, that means
+we neither distribute nor stack.  The deck remains unchanged.
 
-For MINIMAL uncertainty, we want just 1 pile.  That renders both
-distribution and stacking feckless, so we don't bother.  (Actually,
-distribution would *reverse* the order, and we don't want that, so we
-need to make it a no-op.)
+For MAXIMAL uncertainty, we want 52 separate piles (or more, with some
+empty!).  If we distribute in fixed order, we must stack randomly.  Or
+if we distribute randomly, then we may stack in fixed order.  We must
+use random order at least once, or else there's no uncertainty.
+(We'll discuss how to perform that random ordering later.)
 
-What's tricky is creating uncertainty levels IN BETWEEN.  Fewer piles
-means less uncertainty, and more piles means more.  But the increase
-in uncertainty is not linear.  3 piles greatly increases the
-uncertainty over just 2, whereas 33 piles, say, represents almost no
-difference over 32.
+So minimal and maximal uncertainty shuffles are easy; how about
+uncertainty levels IN BETWEEN?  The gist of it: fewer piles means less
+uncertainty, and more piles means more.
 
-Also, *when* we employ randomness (i.e. during distribution
-v. stacking) matters a great deal.  Let's explore.
+But the increase in uncertainty is not linear.  3 piles greatly
+increases the uncertainty over just 2, whereas 33 piles, say,
+represents almost no difference over 32.  Also, *when* we employ
+randomness (i.e. during distribution v. stacking) matters a great
+deal.  Let's explore.
 
 - Fixed distro, random stack -
 
 If we use fixed-order distribution but then random-order stacking,
-then for any given number of piles, we know exactly which cards will
-end up together as a group (and in what order, besides).  All that we
-do not know is where in the deck each such group will end up.  The
-more piles we use, the smaller the groups, and thus the greater the
-uncertainty.
+then we know exactly which cards will end up together as a group (and
+in what order, besides).  Our uncertainty lies in knowing where in the
+shuffled deck each group ends up.  The more piles we use, the smaller
+the groups, and thus the greater the uncertainty.
 
 As an example, consider using 4 piles.  Each pile will end up with 13
 cards.  We know a priori that the first pile will contain: 2/clubs,
@@ -89,31 +93,33 @@ Now consider using 26 piles.  Each ends up with 2 cards, and we know
 exactly which ones.  (In fact, in this case, each pile ends up with 2
 cards of the same rank, with the suits being either Clubs & Hearts or
 Diamonds & Spades.)  Randomly stacking the piles gives us an
-astronomical 26! possible permutations, but there's still a lot we
-know.  When considering each card with knowledge of only its index in
-the shuffled deck, there are only 26 different options.  If we know
-which card precedes it, in half the cases we have complete certainty.
+astronomical number (26!) of possible permutations, but there's still
+a lot we know.  When considering each card with knowledge of only its
+index in the shuffled deck, there are only 26 different options.  If
+we know which card precedes it, in half the cases we have complete
+certainty.
 
 When the number of piles does not evenly divide the deck, the logic
 becomes a touch murkier.  Let's take the example of 39 piles (which is
 still a nice "round" number when dealing in groups of 13 [per suit]).
 In this case, the first 13 piles each end up with 2 cards, and the
 remaining piles each get just one.  Randomly stacking the piles gives
-us 39! possible permutations.  But importantly, when considering each
-card with knowledge of only its index in the shuffled deck, all that
-we know is that 13 of the cards won't end up at the very bottom, and
-that 13 other cards won't end up at the very top.  (In other words, at
-two spots in the deck, we have reduced our uncertainty by 1/4.
-Elsewhere, we have near-complete uncertainty.)  If we know which card
-comes before, then 1/4 of the time we'll have complete certainty.
+us a whooping 39! possible permutations.  But importantly, when
+considering each card with knowledge of only its index in the shuffled
+deck, all that we know is that 13 of the cards won't end up at the
+very bottom, and that 13 other cards won't end up at the very top.
+(In other words, at two spots in the deck, we have reduced our
+uncertainty by 1/4.  Elsewhere, we have near-complete uncertainty.)
+If we know which card comes before, then 1/4 of the time we'll have
+complete certainty.
 
 While it's unclear (to me) exactly how much in case case, we see that
 increasing the number of piles increases our uncertainty.
 
-- Random distro, fixed stack -
-
 Now, let's consider random-order distribution with fixed-order
 stacking.
+
+- Random distro, fixed stack -
 
 In this case, we know for each card the set of positions where it may
 end up, we just don't know where within that set.  The greater the
@@ -143,6 +149,8 @@ our uncertainty by a small amount.  We also know that if we see one of
 those 13 cards, then the card following it won't be from that same set
 (i.e. we've reduced our options from 51 to 39).  But we have lots of
 uncertainty.
+
+- Either Case -
 
 So, regardless of whether we use fixed distribution with random
 stacking or the other way around, the number of piles impacts the
@@ -182,3 +190,5 @@ In any case, if we like, we can have optimal uncertainty in our random
 orderings, too, by using random selection with*out* replacement.
 Given that we're attempting to control the quality of our shuffles
 using the number of piles, that's what we've chosen to do.
+
+-EOF-

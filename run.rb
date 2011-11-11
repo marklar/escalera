@@ -1,28 +1,62 @@
+#!/usr/bin/env ruby
 $LOAD_PATH << './lib'
 require 'game'
 
-# -- configs --
-num_divisions = 100
-num_runs_per_config = 1_000
-opts_num_players = [2] # 2..5
-opts_num_cards   = [5] # 5..7
-opts_shuffle_goodness = (0..num_divisions).map {|i| i.to_f / num_divisions }
+def percent_straights(num_players, num_cards, goodness, num_runs)
+  num_straights = 0
+  num_runs.times do
+    g = Game.new(num_players, num_cards, goodness)
+    num_straights += g.num_straights(3, false)
+  end
+  100.0 * num_straights / (num_players * num_runs)
+end
 
-opts_num_players.each do |num_players|
-  opts_num_cards.each do |num_cards|
-    opts_shuffle_goodness.each do |goodness|
-      num_straights = 0
-      num_runs_per_config.times do
-        g = Game.new(num_players, num_cards, goodness)
-        num_straights += g.num_straights(3, false)
-        # puts "num straights: #{g.num_straights(3, false)}"
-        # puts g.hands
-      end
-      perc = num_straights.to_f / (num_players * num_runs_per_config)
-      # puts "players: #{num_players}, cards: #{num_cards}, goodness: #{goodness}" +
-      #   "  straights: #{num_straights} (#{perc}%)"
-      puts "#{goodness}: #{perc}%"
+def goodness_values(n)
+  (0..n).map {|i| i.to_f / n }
+end
+
+def p(goodness, perc)
+  printf "       %.2f : %.2f \%\n", goodness, perc
+end
+
+def question_one
+  str = ["Q: Given these conditions:",
+         "    - perfect shuffle",
+         "    - 2 players",
+         "    - 5 cards each, alternating",
+         "  What are the chances of being dealt a 3-card straight?"]
+  puts
+  puts str.join "\n"
+  perc = percent_straights(2, 5, 0.0, 10_000)
+  printf "A: Probability: %.2f\n", (perc / 100.0)
+  puts
+end
+
+def question_two(num_vals=20)
+  puts "Q: How do the chances vary with how well the deck is shuffled?"
+  puts "A: goodness : straights"
+  goodness_values(num_vals).each do |goodness|
+    perc = percent_straights(2, 5, goodness, 1_000)
+    p(goodness, perc)
+  end
+  puts
+end
+
+def question_three(num_vals=20, players=(3..6))
+  puts "Q: How does this answer change if you vary the number of players?"
+  (3..6).each do |num_players|
+    puts "A: #{num_players} players"
+    puts "    goodness : straights"
+    goodness_values(num_vals).each do |goodness|
+      perc = percent_straights(num_players, 5, goodness, 1_000)
+      p(goodness, perc)
     end
+    puts
   end
 end
+
+# --- main ---
+question_one
+question_two(20)
+question_three(20, 3..6)
 

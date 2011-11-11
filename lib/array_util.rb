@@ -1,4 +1,7 @@
-
+#
+# Monkey-patching class Array
+# to add general-purpose methods.
+#
 class Array
 
   def groups_of(n)
