@@ -1,7 +1,7 @@
 
 = Comments on Strategy =
 
-- "Goodness" -
+- Meaning of "goodness" -
 
 The "goodness" parameter dictates the desired quality of the shuffle.
 (It might better be called "badness", since as its value increases,
@@ -16,7 +16,7 @@ to modify different aspects of our shuffling algorithm.  Let's
 consider one algorithm, and consider how it can be parametrized by
 "goodness".
 
-- Shuffling with Piles -
+= Algorithm: Shuffling with Piles =
 
 One technique we can use for shuffling involves using piles.
   1. Select the NUMBER OF PILES into which to divide the cards.
@@ -32,16 +32,16 @@ order, or random order.
 
 - Distribution -
 
-Number of cards.  One could move more than one card at a time, but I
+_Number_of_cards_.  One could move more than one card at a time, but I
 chose to stick with just one.  The benefit of moving multiple cards at
 a time was unclear, and it complicates achieving a "perfect" shuffle.
 
-Evenness.  One could choose to distribute the cards evenly, by giving
-out cards in rounds, where each pile gets a card.  Or one could do it
-unevenly, without rounds.  I chose to use rounds, which makes it
+_Evenness_.  One could choose to distribute the cards evenly, by
+giving out cards in rounds, where each pile gets a card.  Or one could
+do it unevenly, without rounds.  I chose to use rounds, which makes it
 easier to control the quality of the shuffle.
 
-Order.  Assuming we use rounds for evenness of distribution, we must
+_Order_.  Assuming we use rounds for evenness of distribution, we must
 still decide in which order to feed the piles.  One can use a fixed
 order, or random ordering.  We'll explore those options in a bit.
 
@@ -182,12 +182,12 @@ stacking!  There's no rule that says we must limit ourselves to only
 ending up empty (and an ever-vanishling smaller number of piles with
 multiple cards).
 
-I confess that find it somewhat difficult to reason about exactly how
-much uncertainty there is when using uneven distribution, especially
-when the number of piles exceeds the number of items to be sorted.
+I find it somewhat difficult to reason about exactly how much
+uncertainty there is when using uneven distribution, especially when
+the number of piles exceeds the number of items to be sorted.
 
 In any case, if we like, we can have optimal uncertainty in our random
-orderings, too, by using random selection with*out* replacement.
+orderings, too, by using random selection with_out_ replacement.
 Given that we're attempting to control the quality of our shuffles
 using the number of piles, that's what we've chosen to do.
 

@@ -16,7 +16,7 @@ def goodness_values(n)
 end
 
 def p(goodness, perc)
-  printf "       %.2f : %.2f \%\n", goodness, perc
+  printf "       %.2f | %.2f \%\n", goodness, perc
 end
 
 def question_one
@@ -34,7 +34,8 @@ end
 
 def question_two(num_vals=20)
   puts "Q: How do the chances vary with how well the deck is shuffled?"
-  puts "A: goodness : straights"
+  puts "A: goodness | hands w/ straights"
+  puts "   ---------|-------------------"
   goodness_values(num_vals).each do |goodness|
     perc = percent_straights(2, 5, goodness, 1_000)
     p(goodness, perc)
@@ -46,7 +47,8 @@ def question_three(num_vals=20, players=(3..6))
   puts "Q: How does this answer change if you vary the number of players?"
   (3..6).each do |num_players|
     puts "A: #{num_players} players"
-    puts "    goodness : straights"
+    puts "   goodness | hands w/ straights"
+    puts "   ---------|-------------------"
     goodness_values(num_vals).each do |goodness|
       perc = percent_straights(num_players, 5, goodness, 1_000)
       p(goodness, perc)
