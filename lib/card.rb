@@ -42,7 +42,13 @@ class Card
   end
 
   def to_s
-    rank.to_s + '/' + suit.to_s[0]
+    rank.to_s + '/' + 
+      case RUBY_VERSION
+      when /^1\.9\./
+        suit.to_s[0]
+      else
+        suit.to_s[0].chr
+      end
   end
 
   #--------

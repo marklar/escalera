@@ -28,7 +28,12 @@ class Hand
   alias :sort_by_value! :sort_by_rank!
     
   def to_s
-    @cards.inspect
+    case RUBY_VERSION
+    when /^1\.9\./
+      @cards.inspect
+    else
+      '[' + @cards.map(&:to_s).join(', ') + ']'
+    end
   end
 
   def size

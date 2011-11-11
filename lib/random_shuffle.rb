@@ -5,7 +5,17 @@ require 'array_util'
 # to add methods specific to (various levels of) random shuffling.
 #
 class Array
-  R = Random.new
+  if RUBY_VERSION == '1.9.2'
+    R = Random.new
+  end
+
+  def rand_int(range)
+    if defined? R
+      R.rand(range)
+    else
+      range.first + rand(range.last)
+    end
+  end
 
   # http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
   # aka Fisher-Yates.  Linear-time algo.
@@ -13,7 +23,7 @@ class Array
   # MUTATES ary.
   def knuth_shuffle!
     (self.size - 1).downto(1) do |i|
-      j = R.rand(0..i)
+      j = rand_int(0..i)
       self.swap_at_indices(i, j)
     end
     self
@@ -26,8 +36,8 @@ class Array
   # The quality of randomness increases with the number of "piles".
   def sort_shuffle(num_piles=100_000)
     self.
-      map {|e| [R.rand(0..num_piles), e] }.  # Assign random num to each.
-      sort {|a,b| a[0] <=> b[0] }.           # Sort by random num.
+      map {|e| [rand_int(0..num_piles), e] }.  # Assign random num to each.
+      sort {|a,b| a[0] <=> b[0] }.             # Sort by random num.
       map {|(_,c)| c }
   end
 
