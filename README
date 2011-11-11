@@ -1,1 +1,16 @@
-Juego de cartas.
+
+Requirement:
+  Ruby 1.9.2
+
+To run:
+  > cd escalera
+  > ruby ./run.rb
+
+To test:
+  > cd escalera
+  > ruby test/all.rb
+
+Commentary:
+  notes.txt
+
+-Mark
