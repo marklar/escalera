@@ -10,6 +10,7 @@ To test:
   > ruby test/all.rb
 
 Commentary:
-  notes.txt
+  1. the_problem.txt
+  2. notes.txt
 
 -Mark
